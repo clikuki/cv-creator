@@ -1,0 +1,17 @@
+html,
+body {
+	margin: 0;
+	height: 100%;
+}
+
+#root {
+	display: grid;
+	grid-template-columns: 30% 70%;
+	min-height: 100%;
+}
+
+*,
+*::after,
+*::before {
+	box-sizing: border-box;
+}
