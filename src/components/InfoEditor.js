@@ -1,14 +1,13 @@
-import { useState } from "react"
-import { nanoid } from "nanoid";
 import css from '../css/infoEditor.module.css';
+import { nanoid } from "nanoid";
 
 const PersonalSection = props =>
 {
 	const { personalInfo } = props;
-	const onChange = ({ target }) =>
+	const onChange = (e) =>
 	{
-		const value = target.value;
-		const type = target.dataset.type;
+		const value = e.target?.files?.[0] || e.target.value;
+		const type = e.target.dataset.type;
 		props.onChange(type, value);
 	}
 
@@ -16,7 +15,8 @@ const PersonalSection = props =>
 		<h2>Personal Info</h2>
 		<input value={personalInfo.firstName} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
 		<input value={personalInfo.lastName} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
-		<input value={personalInfo.photo} onChange={onChange} data-type='photo' placeholder="Photo" type='file' accept=".png,.jpg,.webp" />
+		<input value={personalInfo.title} onChange={onChange} data-type='title' placeholder="Title" type='text' />
+		<input onChange={onChange} data-type='photo' placeholder="Photo" type='file' accept=".png,.jpg,.webp" />
 		<input value={personalInfo.email} onChange={onChange} data-type='email' placeholder="Email" type='email' />
 		<input value={personalInfo.phoneNum} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
 		<input value={personalInfo.address} onChange={onChange} data-type='address' placeholder="Address" type='text' />
@@ -119,26 +119,14 @@ const getStaticSectionEvent = (obj, setFunc) => (type, value) =>
 	})
 }
 
-const InfoEditor = () =>
+const InfoEditor = props =>
 {
-	const [educationInfo, setEducationInfo] = useState([]);
-	const [workInfo, setWorkInfo] = useState([]);
-	const [personalInfo, setPersonalInfo] = useState({
-		firstName: '',
-		lastName: '',
-		photo: '',
-		email: '',
-		phoneNum: '',
-		address: '',
-		description: '',
-	});
-
-	const handlePersonalInfoChange = getStaticSectionEvent(personalInfo, setPersonalInfo);
+	const handlePersonalInfoChange = getStaticSectionEvent(props.personalInfo, props.setPersonalInfo);
 	const [
 		handleEducationInfoChange,
 		handleEducationInfoDelete,
 		handleEducationInfoAdd,
-	] = getDynamicSectionEvents(educationInfo, setEducationInfo, () =>
+	] = getDynamicSectionEvents(props.educationInfo, props.setEducationInfo, () =>
 	({
 		school: '',
 		city: '',
@@ -152,7 +140,7 @@ const InfoEditor = () =>
 		handleWorkInfoChange,
 		handleWorkInfoDelete,
 		handleWorkInfoAdd,
-	] = getDynamicSectionEvents(workInfo, setWorkInfo, () =>
+	] = getDynamicSectionEvents(props.workInfo, props.setWorkInfo, () =>
 	({
 		company: '',
 		city: '',
@@ -163,14 +151,14 @@ const InfoEditor = () =>
 	}));
 
 	return <div className={css.infoEditor}>
-		<PersonalSection personalInfo={personalInfo} onChange={handlePersonalInfoChange} />
+		<PersonalSection personalInfo={props.personalInfo} onChange={handlePersonalInfoChange} />
 		<EducationSection
-			educationInfo={educationInfo}
+			educationInfo={props.educationInfo}
 			onChange={handleEducationInfoChange}
 			onAdd={handleEducationInfoAdd}
 			onDelete={handleEducationInfoDelete} />
 		<WorkSection
-			workInfo={workInfo}
+			workInfo={props.workInfo}
 			onChange={handleWorkInfoChange}
 			onAdd={handleWorkInfoAdd}
 			onDelete={handleWorkInfoDelete} />

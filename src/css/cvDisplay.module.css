@@ -1,7 +1,7 @@
 .cvDisplay {
 	aspect-ratio: 1 / 1.4142;
-	width: 70%;
-	background-color: black; /* For display purposes only */
+	width: 90%;
+	background-color: #f8f8f8;
 }
 
 .wrapper {
@@ -10,4 +10,5 @@
 	align-items: center;
 	padding: 2rem;
 	overflow: auto;
+	background-color: #cccccc;
 }
