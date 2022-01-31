@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CVDisplay from "./CVDisplay";
 import InfoEditor from "./InfoEditor";
-import '../css/misc.css';
+import '../css/main.module.css';
 
 const App = () =>
 {

@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import css from '../css/cvDisplay.module.css';
+import main from '../css/main.module.css';
+import style1 from '../css/style1.module.css';
 
 const Style1 = props =>
 {
@@ -13,26 +14,61 @@ const Style1 = props =>
 		fileReader.readAsDataURL(info.personal.photo);
 	}
 
-	return <>
-		<div>
-			<h1>
+	return <div className={style1.page}>
+		<div className={style1.header}>
+			<h2>
 				{`${info.personal.firstName} ${info.personal.lastName}`}
-			</h1>
-			<span>{info.personal.title}</span>
+			</h2>
+			<p>{info.personal.title}</p>
 		</div>
-		<div>
-			<img src={imgSrc} alt='Portrait of self' />
+		<div className={style1.body}>
+			<h3>Description</h3>
+			<p>{info.personal.description}</p>
+			<h4>Experience</h4>
+			{info.work.map(item =>
+			{
+				return <div key={item.key} className={style1.timeline}>
+					<p className={style1.date}>
+						{item.startDate} - {item.endDate}
+					</p>
+					<div className={style1.details}>
+						<h4>{item.position}</h4>
+						<p>{item.company}, {item.city}</p>
+					</div>
+				</div>
+			})}
+			<h4>Education</h4>
+			{info.education.map(item =>
+			{
+				return <div key={item.key} className={style1.timeline}>
+					<p className={style1.date}>
+						{item.startDate} - {item.endDate}
+					</p>
+					<div className={style1.details}>
+						<h4>{item.school},{item.city}</h4>
+						<p>Degree: {item.degree}</p>
+						<p>Subject: {item.subject}</p>
+					</div>
+				</div>
+			})}
 		</div>
-		<div></div>
-	</>
+		<div className={style1.sidebar}>
+			{imgSrc ? <img src={imgSrc} alt='Portrait of self' /> : ''}
+			<h3>Personal Details</h3>
+			<h4>Address</h4>
+			<p>{info.personal.address}</p>
+			<h4>Phone Number</h4>
+			<p>{info.personal.phoneNum}</p>
+			<h4>Email</h4>
+			<p>{info.personal.email}</p>
+		</div>
+	</div>
 }
 
 const CVDisplay = props =>
 {
-	return <div className={css.wrapper}>
-		<div className={css.cvDisplay}>
-			<Style1 info={props.info} />
-		</div>
+	return <div className={main.cvWrapper}>
+		<Style1 info={props.info} />
 	</div>
 }
 

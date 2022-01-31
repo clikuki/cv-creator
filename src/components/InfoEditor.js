@@ -1,4 +1,4 @@
-import css from '../css/infoEditor.module.css';
+import main from '../css/main.module.css';
 import { nanoid } from "nanoid";
 
 const PersonalSection = props =>
@@ -11,16 +11,16 @@ const PersonalSection = props =>
 		props.onChange(type, value);
 	}
 
-	return <div className={css.section}>
+	return <div className={main.section}>
 		<h2>Personal Info</h2>
-		<input value={personalInfo.firstName} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
-		<input value={personalInfo.lastName} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
-		<input value={personalInfo.title} onChange={onChange} data-type='title' placeholder="Title" type='text' />
+		<input value={personalInfo.firstName || ''} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
+		<input value={personalInfo.lastName || ''} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
+		<input value={personalInfo.title || ''} onChange={onChange} data-type='title' placeholder="Title" type='text' />
 		<input onChange={onChange} data-type='photo' placeholder="Photo" type='file' accept=".png,.jpg,.webp" />
-		<input value={personalInfo.email} onChange={onChange} data-type='email' placeholder="Email" type='email' />
-		<input value={personalInfo.phoneNum} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
-		<input value={personalInfo.address} onChange={onChange} data-type='address' placeholder="Address" type='text' />
-		<input value={personalInfo.description} onChange={onChange} data-type='description' placeholder="Description" type='text' />
+		<input value={personalInfo.email || ''} onChange={onChange} data-type='email' placeholder="Email" type='email' />
+		<input value={personalInfo.phoneNum || ''} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
+		<input value={personalInfo.address || ''} onChange={onChange} data-type='address' placeholder="Address" type='text' />
+		<input value={personalInfo.description || ''} onChange={onChange} data-type='description' placeholder="Description" type='text' />
 	</div>
 }
 
@@ -38,17 +38,18 @@ const EducationSection = props =>
 		const { key } = info;
 		const onChange = ({ target }) => onChangeBase(target, key);
 		const onDelete = () => props.onDelete(key);
-		return <div key={key} className={css.section}>
-			<input value={info.school} onChange={onChange} data-type='school' placeholder="School name" type='text' />
-			<input value={info.city} onChange={onChange} data-type='city' placeholder="City" type='text' />
-			<input value={info.degree} onChange={onChange} data-type='degree' placeholder="Degree" type='text' />
-			<input value={info.startDate} onChange={onChange} data-type='startDate' placeholder="Studied from" type='date' />
-			<input value={info.endDate} onChange={onChange} data-type='endDate' placeholder="Studied until" type='date' />
+		return <div key={key} className={main.section}>
+			<input value={info.school || ''} onChange={onChange} data-type='school' placeholder="School name" type='text' />
+			<input value={info.city || ''} onChange={onChange} data-type='city' placeholder="City" type='text' />
+			<input value={info.degree || ''} onChange={onChange} data-type='degree' placeholder="Degree" type='text' />
+			<input value={info.subject || ''} onChange={onChange} data-type='subject' placeholder="Subject" type='text' />
+			<input value={info.startDate || ''} onChange={onChange} data-type='startDate' placeholder="Studied from" type='text' />
+			<input value={info.endDate || ''} onChange={onChange} data-type='endDate' placeholder="Studied until" type='text' />
 			<button onClick={onDelete}>Delete section</button>
 		</div>
 	})
 
-	return <div className={css.section}>
+	return <div className={main.section}>
 		<h2>Education</h2>
 		{schoolSections}
 		<button onClick={props.onAdd}>Add section</button>
@@ -69,24 +70,24 @@ const WorkSection = props =>
 		const { key } = info;
 		const onChange = ({ target }) => onChangeBase(target, key);
 		const onDelete = () => props.onDelete(key);
-		return <div key={key} className={css.section}>
-			<input value={info.company} onChange={onChange} data-type='company' placeholder="Company" type='text' />
-			<input value={info.city} onChange={onChange} data-type='city' placeholder="City" type='text' />
-			<input value={info.position} onChange={onChange} data-type='position' placeholder="Position" type='text' />
-			<input value={info.startDate} onChange={onChange} data-type='startDate' placeholder="Worked from" type='date' />
-			<input value={info.endDate} onChange={onChange} data-type='endDate' placeholder="Worked until" type='date' />
+		return <div key={key} className={main.section}>
+			<input value={info.company || ''} onChange={onChange} data-type='company' placeholder="Company" type='text' />
+			<input value={info.city || ''} onChange={onChange} data-type='city' placeholder="City" type='text' />
+			<input value={info.position || ''} onChange={onChange} data-type='position' placeholder="Position" type='text' />
+			<input value={info.startDate || ''} onChange={onChange} data-type='startDate' placeholder="Worked from" type='text' />
+			<input value={info.endDate || ''} onChange={onChange} data-type='endDate' placeholder="Worked until" type='text' />
 			<button onClick={onDelete}>Delete section</button>
 		</div>
 	})
 
-	return <div className={css.section}>
+	return <div className={main.section}>
 		<h2>Work experience</h2>
 		{schoolSections}
 		<button onClick={props.onAdd}>Add section</button>
 	</div>
 }
 
-const getDynamicSectionEvents = (arr, setFunc, getTemplate) => [
+const getDynamicSectionEvents = (arr, setFunc) => [
 	(type, key, value) => // onChange
 	{
 		const index = arr.findIndex(x => x.key === key);
@@ -108,7 +109,7 @@ const getDynamicSectionEvents = (arr, setFunc, getTemplate) => [
 		setFunc(top.concat(bottom));
 	},
 	// onAdd
-	() => setFunc(arr.concat(getTemplate())),
+	() => setFunc(arr.concat({ key: nanoid() })),
 ]
 
 const getStaticSectionEvent = (obj, setFunc) => (type, value) =>
@@ -126,31 +127,15 @@ const InfoEditor = props =>
 		handleEducationInfoChange,
 		handleEducationInfoDelete,
 		handleEducationInfoAdd,
-	] = getDynamicSectionEvents(props.educationInfo, props.setEducationInfo, () =>
-	({
-		school: '',
-		city: '',
-		degree: '',
-		startDate: '',
-		endDate: '',
-		key: nanoid(),
-	}));
+	] = getDynamicSectionEvents(props.educationInfo, props.setEducationInfo);
 
 	const [
 		handleWorkInfoChange,
 		handleWorkInfoDelete,
 		handleWorkInfoAdd,
-	] = getDynamicSectionEvents(props.workInfo, props.setWorkInfo, () =>
-	({
-		company: '',
-		city: '',
-		position: '',
-		startDate: '',
-		endDate: '',
-		key: nanoid(),
-	}));
+	] = getDynamicSectionEvents(props.workInfo, props.setWorkInfo);
 
-	return <div className={css.infoEditor}>
+	return <div className={main.infoEditor}>
 		<PersonalSection personalInfo={props.personalInfo} onChange={handlePersonalInfoChange} />
 		<EducationSection
 			educationInfo={props.educationInfo}
