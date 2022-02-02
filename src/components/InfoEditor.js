@@ -12,7 +12,7 @@ const PersonalSection = props =>
 	}
 
 	return <div className={main.section}>
-		<h2>Personal Info</h2>
+		<h2 className={main.sectionHeader}>Personal Info</h2>
 		<input value={personalInfo.firstName || ''} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
 		<input value={personalInfo.lastName || ''} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
 		<input value={personalInfo.title || ''} onChange={onChange} data-type='title' placeholder="Title" type='text' />
@@ -20,7 +20,7 @@ const PersonalSection = props =>
 		<input value={personalInfo.email || ''} onChange={onChange} data-type='email' placeholder="Email" type='email' />
 		<input value={personalInfo.phoneNum || ''} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
 		<input value={personalInfo.address || ''} onChange={onChange} data-type='address' placeholder="Address" type='text' />
-		<input value={personalInfo.description || ''} onChange={onChange} data-type='description' placeholder="Description" type='text' />
+		<textarea value={personalInfo.description || ''} onChange={onChange} data-type='description' placeholder="Description" type='text' />
 	</div>
 }
 
@@ -50,7 +50,7 @@ const EducationSection = props =>
 	})
 
 	return <div className={main.section}>
-		<h2>Education</h2>
+		<h2 className={main.sectionHeader}>Education</h2>
 		{schoolSections}
 		<button onClick={props.onAdd}>Add section</button>
 	</div>
@@ -81,7 +81,7 @@ const WorkSection = props =>
 	})
 
 	return <div className={main.section}>
-		<h2>Work experience</h2>
+		<h2 className={main.sectionHeader}>Work experience</h2>
 		{schoolSections}
 		<button onClick={props.onAdd}>Add section</button>
 	</div>

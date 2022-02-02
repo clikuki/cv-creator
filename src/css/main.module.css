@@ -10,11 +10,31 @@ body {
 	box-sizing: border-box;
 }
 
-.infoEditor {
-	font-family: Arial, Helvetica, sans-serif;
+.sidebar {
+	box-shadow: 0 0 1rem 0.3rem #0006;
+	height: 100%;
 	background-color: #a5a5a5;
-	flex-grow: 1;
+	z-index: 1;
 	overflow: auto;
+	scrollbar-width: thin;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+	margin: 0;
+	padding: 0.5rem 0;
+	text-align: center;
+}
+
+.infoEditor {
+	padding: 1rem;
+}
+
+.sectionHeader {
+	border-bottom: 1px solid black;
+	width: 100%;
+	padding-bottom: 1px;
+	margin: 0.5rem 0 1rem 0;
 }
 
 .section {
@@ -22,12 +42,26 @@ body {
 	flex-direction: column;
 	justify-content: space-evenly;
 	align-items: center;
+	width: 100%;
+}
+
+.section :where(input, textarea, button) {
+	width: 100%;
+	margin-top: 5px;
+}
+
+.section :where(input, textarea):first-child {
+	margin-top: 0;
+}
+
+.section textarea {
+	resize: none;
 }
 
 .cvWrapper {
 	display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: flex-start;
 	padding: 2rem;
 	overflow: auto;
 	background-color: #cccccc;
@@ -35,5 +69,6 @@ body {
 
 .cvWrapper > * {
 	aspect-ratio: 1 / 1.4142;
-	width: 90%;
+	width: 40rem;
+	box-shadow: 0 0 1rem 0.3rem #0006;
 }
