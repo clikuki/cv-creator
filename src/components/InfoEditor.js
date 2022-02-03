@@ -24,6 +24,37 @@ const PersonalSection = props =>
 	</div>
 }
 
+const WorkSection = props =>
+{
+	const onChangeBase = (target, key) =>
+	{
+		const value = target.value;
+		const type = target.dataset.type;
+		props.onChange(type, key, value);
+	}
+
+	const schoolSections = props.workInfo.map(info =>
+	{
+		const { key } = info;
+		const onChange = ({ target }) => onChangeBase(target, key);
+		const onDelete = () => props.onDelete(key);
+		return <div key={key} className={main.section}>
+			<input value={info.company || ''} onChange={onChange} data-type='company' placeholder="Company" type='text' />
+			<input value={info.city || ''} onChange={onChange} data-type='city' placeholder="City" type='text' />
+			<input value={info.position || ''} onChange={onChange} data-type='position' placeholder="Position" type='text' />
+			<input value={info.startDate || ''} onChange={onChange} data-type='startDate' placeholder="Worked from" type='text' />
+			<input value={info.endDate || ''} onChange={onChange} data-type='endDate' placeholder="Worked until" type='text' />
+			<button onClick={onDelete}>Delete section</button>
+		</div>
+	})
+
+	return <div className={main.section}>
+		<h2 className={main.sectionHeader}>Work experience</h2>
+		{schoolSections}
+		<button onClick={props.onAdd}>Add section</button>
+	</div>
+}
+
 const EducationSection = props =>
 {
 	const onChangeBase = (target, key) =>
@@ -51,37 +82,6 @@ const EducationSection = props =>
 
 	return <div className={main.section}>
 		<h2 className={main.sectionHeader}>Education</h2>
-		{schoolSections}
-		<button onClick={props.onAdd}>Add section</button>
-	</div>
-}
-
-const WorkSection = props =>
-{
-	const onChangeBase = (target, key) =>
-	{
-		const value = target.value;
-		const type = target.dataset.type;
-		props.onChange(type, key, value);
-	}
-
-	const schoolSections = props.workInfo.map(info =>
-	{
-		const { key } = info;
-		const onChange = ({ target }) => onChangeBase(target, key);
-		const onDelete = () => props.onDelete(key);
-		return <div key={key} className={main.section}>
-			<input value={info.company || ''} onChange={onChange} data-type='company' placeholder="Company" type='text' />
-			<input value={info.city || ''} onChange={onChange} data-type='city' placeholder="City" type='text' />
-			<input value={info.position || ''} onChange={onChange} data-type='position' placeholder="Position" type='text' />
-			<input value={info.startDate || ''} onChange={onChange} data-type='startDate' placeholder="Worked from" type='text' />
-			<input value={info.endDate || ''} onChange={onChange} data-type='endDate' placeholder="Worked until" type='text' />
-			<button onClick={onDelete}>Delete section</button>
-		</div>
-	})
-
-	return <div className={main.section}>
-		<h2 className={main.sectionHeader}>Work experience</h2>
 		{schoolSections}
 		<button onClick={props.onAdd}>Add section</button>
 	</div>
