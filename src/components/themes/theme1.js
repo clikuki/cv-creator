@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import emptyAvatar from '../empty_avatar.png';
-import getPhotoUrl from '../getPhotoUrl';
-import style1 from '../css/style1.module.css';
+import emptyAvatar from '../../empty_avatar.png';
+import getPhotoUrl from '../../getPhotoUrl';
+import css from '../../css/theme1.module.css';
 
 const Style1 = props =>
 {
@@ -15,24 +15,24 @@ const Style1 = props =>
 			.catch(err => console.error(err));
 	}
 
-	return <div className={style1.page}>
-		<div className={style1.header}>
-			<h2 className={style1.name}>
+	return <div className={css.page}>
+		<div className={css.header}>
+			<h2 className={css.name}>
 				{info.personal.firstName || ''} {info.personal.lastName || ''}
 			</h2>
-			<p className={style1.title}>{info.personal.title}</p>
+			<p className={css.title}>{info.personal.title}</p>
 		</div>
-		<div className={style1.body}>
+		<div className={css.body}>
 			<h3>Description</h3>
 			<p>{info.personal.description}</p>
 			<h3>Experience</h3>
 			{[...info.work, { key: 'fakeItem' }].map(item =>
 			{
-				return <div key={item.key} className={style1.timeline}>
-					<p className={style1.date}>
+				return <div key={item.key} className={css.timeline}>
+					<p className={css.date}>
 						{item.startDate || 'From'} - {item.endDate || 'To'}
 					</p>
-					<div className={style1.details}>
+					<div className={css.details}>
 						<h4>{item.position || 'Position'}</h4>
 						<p>{item.company || 'Company'}, {item.city || 'City'}</p>
 					</div>
@@ -41,11 +41,11 @@ const Style1 = props =>
 			<h3>Education</h3>
 			{[...info.education, { key: 'fakeItem' }].map(item =>
 			{
-				return <div key={item.key} className={style1.timeline}>
-					<p className={style1.date}>
+				return <div key={item.key} className={css.timeline}>
+					<p className={css.date}>
 						{item.startDate || 'From'} - {item.endDate || 'To'}
 					</p>
-					<div className={style1.details}>
+					<div className={css.details}>
 						<h4>{item.school || 'University'}, {item.city || 'City'}</h4>
 						<p>Degree: {item.degree || ''}</p>
 						<p>Subject: {item.subject || ''}</p>
@@ -53,7 +53,7 @@ const Style1 = props =>
 				</div>
 			})}
 		</div>
-		<div className={style1.sidebar}>
+		<div className={css.sidebar}>
 			{imgSrc ? <img src={imgSrc} alt='Portrait of self' /> : ''}
 			<h3>Personal Details</h3>
 			<h4>Address</h4>

@@ -3,6 +3,7 @@ import CVDisplay from "./CVDisplay";
 import InfoEditor from "./InfoEditor";
 import DisplayControls from "./DisplayControls";
 import main from '../css/main.module.css';
+import { nanoid } from "nanoid";
 
 const Header = () => <h1 className={main.header}>
 	CV Creator
@@ -14,13 +15,52 @@ const App = () =>
 	const [workInfo, setWorkInfo] = useState([]);
 	const [personalInfo, setPersonalInfo] = useState({});
 	const [displayScale, setDisplayScale] = useState(16);
+	const [curTheme, setTheme] = useState(0);
+
+	const handleLoadExample = () =>
+	{
+		setPersonalInfo({
+			firstName: 'Billy',
+			lastName: 'Boggins',
+			title: 'Graphic Designer',
+			email: 'BillyBoggins@gmail.com',
+			address: 'Somewhereland',
+			phoneNum: '#456123789',
+			description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sit facere. Enim, ducimus facilis? Culpa, totam nesciunt officiis eveniet distinctio voluptatem? Voluptates asperiores neque cum tenetur, deserunt hic quia cupiditate ipsa illum sapiente iusto necessitatibus, porro suscipit quibusdam autem repellendus dicta facere earum quaerat. Consequatur perspiciatis ducimus ea architecto officia!',
+		})
+
+		setEducationInfo([
+			{
+				school: 'University of Stuff',
+				city: 'Somewhereland',
+				degree: 'Bachelors',
+				subject: 'Science',
+				startDate: '2003',
+				endDate: '2006',
+				key: nanoid(),
+			}
+		])
+
+		setWorkInfo([
+			{
+				company: 'BEEG Inc.',
+				city: 'Big city',
+				position: 'Graphic Designer',
+				startDate: '2006',
+				endDate: 'Present',
+				key: nanoid(),
+			}
+		])
+	}
 
 	return <div className={main.container}>
 		<div className={main.sidebar}>
 			<Header />
 			<DisplayControls
 				scale={displayScale}
-				setScale={setDisplayScale} />
+				onLoadExample={handleLoadExample}
+				setScale={setDisplayScale}
+				setTheme={setTheme} />
 			<InfoEditor
 				personalInfo={personalInfo}
 				workInfo={workInfo}
@@ -30,6 +70,7 @@ const App = () =>
 				setWorkInfo={setWorkInfo} />
 		</div>
 		<CVDisplay
+			theme={curTheme}
 			scale={displayScale}
 			info={{
 				personal: personalInfo,
