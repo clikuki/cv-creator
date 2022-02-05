@@ -1,13 +1,27 @@
 import main from '../css/main.module.css';
+import getPhotoUrl from '../getPhotoUrl';
 import { nanoid } from "nanoid";
 
 const PersonalSection = props =>
 {
 	const { personalInfo } = props;
-	const onChange = (e) =>
+	const onChange = async e =>
 	{
-		const value = e.target?.files?.[0] || e.target.value;
 		const type = e.target.dataset.type;
+		let value = e.target?.files?.[0] || e.target.value;
+		if (value instanceof File)
+		{
+			try
+			{
+				value = await getPhotoUrl(value);
+			}
+			catch (err)
+			{
+				console.error(err);
+				return;
+			}
+		}
+
 		props.onChange(type, value);
 	}
 
@@ -16,7 +30,7 @@ const PersonalSection = props =>
 		<input value={personalInfo.firstName || ''} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
 		<input value={personalInfo.lastName || ''} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
 		<input value={personalInfo.title || ''} onChange={onChange} data-type='title' placeholder="Title" type='text' />
-		<input onChange={onChange} data-type='photo' placeholder="Photo" type='file' accept=".png,.jpg,.webp" />
+		<input onChange={onChange} data-type='photo' placeholder="Photo" type='file' accept="image/*" />
 		<input value={personalInfo.email || ''} onChange={onChange} data-type='email' placeholder="Email" type='email' />
 		<input value={personalInfo.phoneNum || ''} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
 		<input value={personalInfo.address || ''} onChange={onChange} data-type='address' placeholder="Address" type='text' />

@@ -71,6 +71,7 @@ button {
 	grid-template-columns: 50% auto;
 	align-items: center;
 	gap: 5%;
+	padding-left: 1rem;
 }
 
 .cvWrapper {

@@ -14,7 +14,7 @@ const App = () =>
 	const [educationInfo, setEducationInfo] = useState([]);
 	const [workInfo, setWorkInfo] = useState([]);
 	const [personalInfo, setPersonalInfo] = useState({});
-	const [displayScale, setDisplayScale] = useState(16);
+	const [displayScale, setDisplayScale] = useState(12);
 	const [curTheme, setTheme] = useState(0);
 
 	const handleLoadExample = () =>
