@@ -63,7 +63,7 @@ const Sidebar = props =>
 {
 	const { info } = props;
 	return <div className={css.sidebar}>
-		<img src={info.personal.photo || emptyAvatar} alt='Portrait of self' />
+		<img src={info.personal.photo?.url || emptyAvatar} alt='Portrait of self' />
 		<h3>Personal Details</h3>
 		<h4>Address</h4>
 		<p>{info.personal.address}</p>

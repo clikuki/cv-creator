@@ -41,6 +41,14 @@ body {
 	padding-top: 0;
 }
 
+.customFileInput {
+	width: 100%;
+}
+
+.customFileInput input {
+	display: none;
+}
+
 .sectionHeader {
 	border-bottom: 1px solid black;
 	width: 100%;
@@ -66,7 +74,7 @@ button {
 	resize: none;
 }
 
-.displayControls label {
+.zoomInput {
 	display: grid;
 	grid-template-columns: 50% auto;
 	align-items: center;
@@ -88,6 +96,10 @@ button {
 	box-shadow: 0 0 1rem 0.3rem #0006;
 	transition: font-size 200ms ease-out;
 	width: 52em;
+}
+
+button:hover {
+	cursor: pointer;
 }
 
 @media print {

@@ -6,7 +6,7 @@ const ZoomInput = props =>
 {
 	const { fontSizeRange: range } = props;
 	const mappedVal = map(props.scale, ...range, 0, 100);
-	return <label>
+	return <label className={main.zoomInput}>
 		<input
 			value={props.scale}
 			onChange={props.onChange}

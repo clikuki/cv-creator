@@ -1,6 +1,24 @@
 import main from '../css/main.module.css';
 import getPhotoUrl from '../getPhotoUrl';
 import { nanoid } from "nanoid";
+import { createRef } from 'react';
+
+const FileInput = props =>
+{
+	const inputRef = createRef();
+	const onClick = () => inputRef.current?.click();
+	return <label className={main.customFileInput}>
+		<input
+			type='file'
+			onChange={props.onChange}
+			data-type={props.dataType}
+			accept={props.accept}
+			ref={inputRef} />
+		<button onClick={onClick}>
+			{props.children}
+		</button>
+	</label>
+}
 
 const PersonalSection = props =>
 {
@@ -8,12 +26,18 @@ const PersonalSection = props =>
 	const onChange = async e =>
 	{
 		const type = e.target.dataset.type;
-		let value = e.target?.files?.[0] || e.target.value;
-		if (value instanceof File)
+		const file = e.target?.files?.[0];
+		const value = e.target.value;
+		let newVal = value;
+
+		if (file)
 		{
 			try
 			{
-				value = await getPhotoUrl(value);
+				newVal = {
+					name: value,
+					url: await getPhotoUrl(file)
+				};
 			}
 			catch (err)
 			{
@@ -22,15 +46,17 @@ const PersonalSection = props =>
 			}
 		}
 
-		props.onChange(type, value);
+		props.onChange(type, newVal);
 	}
 
 	return <div className={main.section}>
 		<h2 className={main.sectionHeader}>Personal Info</h2>
+		<FileInput onChange={onChange} dataType='photo' accept="image/*" >
+			Select photo
+		</ FileInput>
 		<input value={personalInfo.firstName || ''} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
 		<input value={personalInfo.lastName || ''} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
 		<input value={personalInfo.title || ''} onChange={onChange} data-type='title' placeholder="Title" type='text' />
-		<input onChange={onChange} data-type='photo' placeholder="Photo" type='file' accept="image/*" />
 		<input value={personalInfo.email || ''} onChange={onChange} data-type='email' placeholder="Email" type='email' />
 		<input value={personalInfo.phoneNum || ''} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
 		<input value={personalInfo.address || ''} onChange={onChange} data-type='address' placeholder="Address" type='text' />
