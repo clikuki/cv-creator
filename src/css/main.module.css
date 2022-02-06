@@ -10,6 +10,11 @@ body {
 	box-sizing: border-box;
 }
 
+:global(#root) {
+	height: 100%;
+	max-height: 100%;
+}
+
 .container {
 	display: grid;
 	grid-template-columns: 20rem minmax(0, 1fr);
@@ -64,7 +69,7 @@ body {
 	width: 100%;
 }
 
-.displayControls button,
+.displayControlsInput,
 .sectionInput {
 	width: 100%;
 	margin-top: 5px;
@@ -74,12 +79,22 @@ body {
 	resize: none;
 }
 
-.zoomInput {
+.zoomInput,
+.themeInput {
 	display: grid;
 	grid-template-columns: 50% auto;
 	align-items: center;
 	gap: 5%;
 	padding-left: 1rem;
+}
+
+.themeInput {
+	gap: 0;
+}
+
+.zoomInput input,
+.themeInput input {
+	width: 100%;
 }
 
 .cvWrapper {

@@ -57,10 +57,11 @@ const App = () =>
 		<div className={main.sidebar}>
 			<Header />
 			<DisplayControls
-				scale={displayScale}
-				onLoadExample={handleLoadExample}
+				curScale={displayScale}
+				curTheme={curTheme}
 				setScale={setDisplayScale}
-				setTheme={setTheme} />
+				onLoadExample={handleLoadExample}
+				onChangeTheme={setTheme} />
 			<InfoEditor
 				personalInfo={personalInfo}
 				workInfo={workInfo}
