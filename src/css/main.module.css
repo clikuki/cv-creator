@@ -65,7 +65,7 @@ body {
 }
 
 .section :where(input, textarea),
-button {
+:where(.section, .displayControls) button {
 	width: 100%;
 	margin-top: 5px;
 }
@@ -109,14 +109,18 @@ button:hover {
 
 	.container > *:not(.cvWrapper) {
 		display: none;
-		padding: 0;
 	}
 
 	.cvWrapper {
 		background-color: initial;
+		padding: 0;
 	}
 
 	.cvWrapper > * {
-		font-size: 1rem;
+		font-size: 1.1rem;
+		box-shadow: none;
+		aspect-ratio: unset;
+		width: 100vw;
+		height: 100vh;
 	}
 }
