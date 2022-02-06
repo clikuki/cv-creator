@@ -12,7 +12,7 @@ const Header = props =>
 	</div>
 }
 
-const TimeRange = props => <p className={css.date}>
+const DateRange = props => <p className={css.date}>
 	{props.startDate || 'From'} - {props.endDate || 'To'}
 </p>
 
@@ -20,7 +20,7 @@ const WorkItem = props =>
 {
 	const { item } = props;
 	return <div className={css.timeline}>
-		<TimeRange startDate={item.startDate} endDate={item.startDate} />
+		<DateRange startDate={item.startDate} endDate={item.endDate} />
 		<div className={css.details}>
 			<h4>{item.position || 'Position'}</h4>
 			<p>{item.company || 'Company'}, {item.city || 'City'}</p>
@@ -32,7 +32,7 @@ const EducationItem = props =>
 {
 	const { item } = props;
 	return <div className={css.timeline}>
-		<TimeRange startDate={item.startDate} endDate={item.startDate} />
+		<DateRange startDate={item.startDate} endDate={item.endDate} />
 		<div className={css.details}>
 			<h4>{item.school || 'University'}, {item.city || 'City'}</h4>
 			<p>Degree: {item.degree || ''}</p>
