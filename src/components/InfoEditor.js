@@ -10,15 +10,30 @@ const FileInput = props =>
 	return <label className={main.customFileInput}>
 		<input
 			type='file'
-			onChange={props.onChange}
-			data-type={props.dataType}
-			accept={props.accept}
+			onChange={props.onChange || null}
+			data-type={props.dataType || null}
+			accept={props.accept || null}
 			ref={inputRef} />
-		<button onClick={onClick}>
+		<Button ariaLabel='File selector' onClick={onClick}>
 			{props.children}
-		</button>
+		</Button>
 	</label>
 }
+
+const TextInput = props => <input
+	value={props.value || ''}
+	placeholder={props.placeholder || null}
+	onChange={props.onChange || null}
+	data-type={props.dataType || null}
+	className={main.sectionInput}
+	type='text' />
+
+const Button = props => <button
+	className={main.sectionInput}
+	aria-label={props.ariaLabel || null}
+	onClick={props.onClick || null}>
+	{props.children}
+</button>;
 
 const PersonalSection = props =>
 {
@@ -36,7 +51,7 @@ const PersonalSection = props =>
 			{
 				newVal = {
 					name: value,
-					url: await getPhotoUrl(file)
+					url: await getPhotoUrl(file),
 				};
 			}
 			catch (err)
@@ -54,13 +69,13 @@ const PersonalSection = props =>
 		<FileInput onChange={onChange} dataType='photo' accept="image/*" >
 			Select photo
 		</ FileInput>
-		<input value={personalInfo.firstName || ''} onChange={onChange} data-type='firstName' placeholder="First name" type='text' />
-		<input value={personalInfo.lastName || ''} onChange={onChange} data-type='lastName' placeholder="Last name" type='text' />
-		<input value={personalInfo.title || ''} onChange={onChange} data-type='title' placeholder="Title" type='text' />
-		<input value={personalInfo.email || ''} onChange={onChange} data-type='email' placeholder="Email" type='email' />
-		<input value={personalInfo.phoneNum || ''} onChange={onChange} data-type='phoneNum' placeholder="Phone number" type='text' />
-		<input value={personalInfo.address || ''} onChange={onChange} data-type='address' placeholder="Address" type='text' />
-		<textarea value={personalInfo.description || ''} onChange={onChange} data-type='description' placeholder="Description" type='text' />
+		<TextInput value={personalInfo.firstName} onChange={onChange} dataType='firstName' placeholder="First name" />
+		<TextInput value={personalInfo.lastName} onChange={onChange} dataType='lastName' placeholder="Last name" />
+		<TextInput value={personalInfo.title} onChange={onChange} dataType='title' placeholder="Title" />
+		<TextInput value={personalInfo.email} onChange={onChange} dataType='email' placeholder="Email" />
+		<TextInput value={personalInfo.phoneNum} onChange={onChange} dataType='phoneNum' placeholder="Phone number" />
+		<TextInput value={personalInfo.address} onChange={onChange} dataType='address' placeholder="Address" />
+		<TextInput value={personalInfo.description} onChange={onChange} dataType='description' placeholder="Description" />
 	</div>
 }
 
@@ -79,19 +94,19 @@ const WorkSection = props =>
 		const onChange = ({ target }) => onChangeBase(target, key);
 		const onDelete = () => props.onDelete(key);
 		return <div key={key} className={main.section}>
-			<input value={info.company || ''} onChange={onChange} data-type='company' placeholder="Company" type='text' />
-			<input value={info.city || ''} onChange={onChange} data-type='city' placeholder="City" type='text' />
-			<input value={info.position || ''} onChange={onChange} data-type='position' placeholder="Position" type='text' />
-			<input value={info.startDate || ''} onChange={onChange} data-type='startDate' placeholder="Worked from" type='text' />
-			<input value={info.endDate || ''} onChange={onChange} data-type='endDate' placeholder="Worked until" type='text' />
-			<button onClick={onDelete}>Delete section</button>
+			<TextInput value={info.company} onChange={onChange} dataType='company' placeholder="Company" />
+			<TextInput value={info.city} onChange={onChange} dataType='city' placeholder="City" />
+			<TextInput value={info.position} onChange={onChange} dataType='position' placeholder="Position" />
+			<TextInput value={info.startDate} onChange={onChange} dataType='startDate' placeholder="Worked from" />
+			<TextInput value={info.endDate} onChange={onChange} dataType='endDate' placeholder="Worked until" />
+			<Button onClick={onDelete}>Delete section</Button>
 		</div>
 	})
 
 	return <div className={main.section}>
 		<h2 className={main.sectionHeader}>Work experience</h2>
 		{schoolSections}
-		<button onClick={props.onAdd}>Add section</button>
+		<Button onClick={props.onAdd}>Add section</Button>
 	</div>
 }
 
@@ -110,20 +125,20 @@ const EducationSection = props =>
 		const onChange = ({ target }) => onChangeBase(target, key);
 		const onDelete = () => props.onDelete(key);
 		return <div key={key} className={main.section}>
-			<input value={info.school || ''} onChange={onChange} data-type='school' placeholder="School name" type='text' />
-			<input value={info.city || ''} onChange={onChange} data-type='city' placeholder="City" type='text' />
-			<input value={info.degree || ''} onChange={onChange} data-type='degree' placeholder="Degree" type='text' />
-			<input value={info.subject || ''} onChange={onChange} data-type='subject' placeholder="Subject" type='text' />
-			<input value={info.startDate || ''} onChange={onChange} data-type='startDate' placeholder="Studied from" type='text' />
-			<input value={info.endDate || ''} onChange={onChange} data-type='endDate' placeholder="Studied until" type='text' />
-			<button onClick={onDelete}>Delete section</button>
+			<TextInput value={info.school} onChange={onChange} dataType='school' placeholder="School name" />
+			<TextInput value={info.city} onChange={onChange} dataType='city' placeholder="City" />
+			<TextInput value={info.degree} onChange={onChange} dataType='degree' placeholder="Degree" />
+			<TextInput value={info.subject} onChange={onChange} dataType='subject' placeholder="Subject" />
+			<TextInput value={info.startDate} onChange={onChange} dataType='startDate' placeholder="Studied from" />
+			<TextInput value={info.endDate} onChange={onChange} dataType='endDate' placeholder="Studied until" />
+			<Button onClick={onDelete}>Delete section</Button>
 		</div>
 	})
 
 	return <div className={main.section}>
 		<h2 className={main.sectionHeader}>Education</h2>
 		{schoolSections}
-		<button onClick={props.onAdd}>Add section</button>
+		<Button onClick={props.onAdd}>Add section</Button>
 	</div>
 }
 

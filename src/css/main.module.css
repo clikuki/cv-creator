@@ -64,8 +64,8 @@ body {
 	width: 100%;
 }
 
-.section :where(input, textarea),
-:where(.section, .displayControls) button {
+.displayControls button,
+.sectionInput {
 	width: 100%;
 	margin-top: 5px;
 }
