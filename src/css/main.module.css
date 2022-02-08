@@ -82,19 +82,17 @@ body {
 .zoomInput,
 .themeInput {
 	display: grid;
-	grid-template-columns: 50% auto;
 	align-items: center;
-	gap: 5%;
-	padding-left: 1rem;
-}
-
-.themeInput {
-	gap: 0;
+	gap: 0.5rem;
+	grid-template-columns: 50% auto;
+	padding: 0 1rem;
+	margin-bottom: 0.2rem;
 }
 
 .zoomInput input,
 .themeInput input {
 	width: 100%;
+	margin: 0;
 }
 
 .cvWrapper {
@@ -134,7 +132,6 @@ button:hover {
 	.cvWrapper > * {
 		font-size: 1.1rem;
 		box-shadow: none;
-		aspect-ratio: unset;
 		width: 100vw;
 		height: 100vh;
 	}

@@ -1,8 +1,10 @@
 import main from '../css/main.module.css';
 import Theme1 from './themes/theme1';
+import Theme2 from './themes/theme2';
 
 const themesList = [
 	Theme1,
+	Theme2,
 ]
 
 const CVDisplay = props =>

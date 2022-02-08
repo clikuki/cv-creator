@@ -5,6 +5,7 @@ const ZoomInput = props =>
 {
 	const mappedVal = map(props.scale, 4, 24, 0, 100);
 	return <label className={main.zoomInput}>
+		Zoom: {+mappedVal.toFixed(1)}%
 		<input
 			value={props.scale}
 			onChange={props.onChange}
@@ -12,7 +13,6 @@ const ZoomInput = props =>
 			step='0.1'
 			min='4'
 			max='24' />
-		Zoom: {+mappedVal.toFixed(1)}%
 	</label>
 }
 
@@ -20,15 +20,14 @@ const ThemeChooser = props =>
 {
 	const onChange = e =>
 	{
-		const value = e.target.value;
-		if (value < 0 || value >= numOfThemes) return;
+		const value = Math.abs(e.target.value - 1) % numOfThemes;
 		props.onChange(value);
 	}
 
 	return <label className={main.themeInput}>
 		Change Theme:
 		<input
-			value={props.value}
+			value={props.value + 1}
 			onChange={onChange}
 			type='number' />
 	</label>
