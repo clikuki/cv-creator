@@ -20,7 +20,11 @@ const ThemeChooser = props =>
 {
 	const onChange = e =>
 	{
-		const value = Math.abs(e.target.value - 1) % numOfThemes;
+		const elemValue = +e.target.value;
+		const value = elemValue ?
+			Math.abs(elemValue - 1) % numOfThemes :
+			numOfThemes - 1;
+
 		props.onChange(value);
 	}
 
