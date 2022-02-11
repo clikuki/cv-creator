@@ -24,7 +24,7 @@ body {
 
 .sidebar {
 	box-shadow: 0 0 1rem 0.3rem #0006;
-	background-color: #a5a5a5;
+	background-color: #d6d6d6;
 	z-index: 1;
 	overflow: auto;
 	scrollbar-width: thin;
@@ -108,7 +108,7 @@ body {
 	align-items: flex-start;
 	padding: 2rem;
 	overflow: auto;
-	background-color: #cccccc;
+	background-color: #ebe9e9;
 }
 
 .cvWrapper > * {
