@@ -17,7 +17,6 @@
 
 .sidebar .name {
 	margin: var(--halfMargin);
-	margin-top: 0;
 	hyphens: none;
 }
 
@@ -35,7 +34,8 @@
 }
 
 .sidebar > * {
-	margin: var(--halfMargin) var(--halfMargin) 0 var(--halfMargin);
+	--qtrMargin: calc(var(--halfMargin) / 2);
+	margin: var(--qtrMargin) var(--halfMargin);
 }
 
 .sidebar h3 {
@@ -46,7 +46,9 @@
 
 .sidebar > img {
 	width: calc(100% - 1em);
-	margin-bottom: var(--halfMargin);
+	margin-top: var(--halfMargin);
+	margin-bottom: 0;
+	border-radius: 0.5em;
 }
 
 .body {
@@ -64,26 +66,4 @@
 
 .body h3:first-child {
 	margin-top: 0;
-}
-
-.timeline {
-	display: grid;
-	grid-template-columns: 20% minmax(0, 1fr);
-	gap: 0.5rem;
-	margin-top: 0.7em;
-}
-
-.timeline .date {
-	margin: 0;
-	font-weight: bold;
-}
-
-.timeline .details h4 {
-	display: inline-block;
-	font-weight: bold;
-	margin-bottom: 0.5em;
-}
-
-.timeline .details p {
-	margin: 0;
 }

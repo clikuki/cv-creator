@@ -1,27 +1,28 @@
 import emptyAvatar from '../../empty_avatar.png';
-import css from '../../css/theme1.module.css';
+import themeCss from '../../css/theme1.module.css';
+import timeline from '../../css/timeline.module.css';
 
 const Header = props =>
 {
 	const { personal } = props.info;
-	return <div className={css.header}>
-		<h2 className={css.name}>
+	return <div className={themeCss.header}>
+		<h2 className={themeCss.name}>
 			{personal.firstName || ''} {personal.lastName || ''}
 		</h2>
-		<p className={css.title}>{personal.title}</p>
+		<p className={themeCss.title}>{personal.title}</p>
 	</div>
 }
 
-const DateRange = props => <p className={css.date}>
+const DateRange = props => <p className={timeline.date}>
 	{props.startDate || 'From'} - {props.endDate || 'To'}
 </p>
 
 const WorkItem = props =>
 {
 	const { item } = props;
-	return <div className={css.timeline}>
+	return <div className={timeline.timeline}>
 		<DateRange startDate={item.startDate} endDate={item.endDate} />
-		<div className={css.details}>
+		<div className={timeline.details}>
 			<h4>{item.position || 'Position'}</h4>
 			<p>{item.company || 'Company'}, {item.city || 'City'}</p>
 		</div>
@@ -31,9 +32,9 @@ const WorkItem = props =>
 const EducationItem = props =>
 {
 	const { item } = props;
-	return <div className={css.timeline}>
+	return <div className={timeline.timeline}>
 		<DateRange startDate={item.startDate} endDate={item.endDate} />
-		<div className={css.details}>
+		<div className={timeline.details}>
 			<h4>{item.school || 'University'}, {item.city || 'City'}</h4>
 			<p>Degree: {item.degree || ''}</p>
 			<p>Subject: {item.subject || ''}</p>
@@ -49,7 +50,7 @@ const Body = props =>
 	const educationItems = info.education.concat({ key: 'fakeItem' })
 		.map(item => <EducationItem key={item.key} item={item} />);
 
-	return <div className={css.body}>
+	return <div className={themeCss.body}>
 		<h3>Description</h3>
 		<p>{info.personal.description}</p>
 		<h3>Experience</h3>
@@ -62,8 +63,15 @@ const Body = props =>
 const Sidebar = props =>
 {
 	const { info } = props;
-	return <div className={css.sidebar}>
-		<img src={info.personal.photo?.url || emptyAvatar} alt='Portrait of self' />
+
+	const skills = info.skills.flatMap(item =>
+	{
+		if (!item.skill) return [];
+		else return [<p key={item.key}>{item.skill}</p>];
+	})
+
+	return <div className={themeCss.sidebar}>
+		<img src={info.personal.photo || emptyAvatar} alt='Portrait of self' />
 		<h3>Personal Details</h3>
 		<h4>Address</h4>
 		<p>{info.personal.address}</p>
@@ -71,6 +79,10 @@ const Sidebar = props =>
 		<p>{info.personal.phoneNum}</p>
 		<h4>Email</h4>
 		<p>{info.personal.email}</p>
+		{
+			skills.length ? <h3>Skills</h3> : ''
+		}
+		{skills}
 	</div>
 }
 
@@ -78,7 +90,7 @@ const Theme = props =>
 {
 	const { info } = props;
 
-	return <div className={css.page}>
+	return <div className={themeCss.page}>
 		<Header info={info} />
 		<Body info={info} />
 		<Sidebar info={info} />

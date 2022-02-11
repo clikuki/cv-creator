@@ -49,10 +49,7 @@ const PersonalSection = props =>
 		{
 			try
 			{
-				newVal = {
-					name: value,
-					url: await getPhotoUrl(file),
-				};
+				newVal = await getPhotoUrl(file);
 			}
 			catch (err)
 			{
@@ -142,6 +139,33 @@ const EducationSection = props =>
 	</div>
 }
 
+const SkillsSection = props =>
+{
+	const onChangeBase = (target, key) =>
+	{
+		const value = target.value;
+		const type = target.dataset.type;
+		props.onChange(type, key, value);
+	}
+
+	const schoolSections = props.skills.map(info =>
+	{
+		const { key } = info;
+		const onChange = ({ target }) => onChangeBase(target, key);
+		const onDelete = () => props.onDelete(key);
+		return <div key={key} className={`${main.section} ${main.skillItem}`}>
+			<TextInput value={info.skill} onChange={onChange} dataType='skill' placeholder='My Skill is ...' />
+			<Button onClick={onDelete}>Delete skill</Button>
+		</div>
+	})
+
+	return <div className={main.section}>
+		<h2 className={main.sectionHeader}>Skills</h2>
+		{schoolSections}
+		<Button onClick={props.onAdd}>Add skill</Button>
+	</div>
+}
+
 const getDynamicSectionEvents = (arr, setFunc) => [
 	(type, key, value) => // onChange
 	{
@@ -190,6 +214,12 @@ const InfoEditor = props =>
 		handleWorkInfoAdd,
 	] = getDynamicSectionEvents(props.workInfo, props.setWorkInfo);
 
+	const [
+		handleSkillsChange,
+		handleSkillsDelete,
+		handleSkillsAdd,
+	] = getDynamicSectionEvents(props.skills, props.setSkills);
+
 	return <div className={main.infoEditor}>
 		<PersonalSection personalInfo={props.personalInfo} onChange={handlePersonalInfoChange} />
 		<EducationSection
@@ -202,6 +232,11 @@ const InfoEditor = props =>
 			onChange={handleWorkInfoChange}
 			onAdd={handleWorkInfoAdd}
 			onDelete={handleWorkInfoDelete} />
+		<SkillsSection
+			skills={props.skills}
+			onChange={handleSkillsChange}
+			onAdd={handleSkillsAdd}
+			onDelete={handleSkillsDelete} />
 	</div>
 }
 

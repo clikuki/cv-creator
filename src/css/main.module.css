@@ -69,6 +69,13 @@ body {
 	width: 100%;
 }
 
+.skillItem {
+	display: grid;
+	grid-template-columns: 50% auto;
+	justify-content: initial;
+	gap: 0.5rem;
+}
+
 .displayControlsInput,
 .sectionInput {
 	width: 100%;

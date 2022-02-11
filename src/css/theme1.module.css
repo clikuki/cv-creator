@@ -37,28 +37,6 @@
 	padding: 1em;
 }
 
-.timeline {
-	display: grid;
-	grid-template-columns: 20% minmax(0, 1fr);
-	gap: 0.5rem;
-	margin-top: 1em;
-}
-
-.timeline .date {
-	margin: 0;
-	font-weight: bold;
-}
-
-.timeline .details h4 {
-	display: inline-block;
-	font-weight: bold;
-	margin-bottom: 0.5em;
-}
-
-.timeline .details p {
-	margin: 0;
-}
-
 .sidebar {
 	background-color: #dddddd;
 	padding: 1em;
@@ -68,6 +46,7 @@
 .sidebar > img {
 	width: 100%;
 	margin-bottom: 0.5em;
+	border-radius: 0.5em;
 }
 
 .sidebar > *:not(img) {

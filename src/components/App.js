@@ -13,6 +13,7 @@ const App = () =>
 {
 	const [educationInfo, setEducationInfo] = useState([]);
 	const [workInfo, setWorkInfo] = useState([]);
+	const [skills, setSkills] = useState([]);
 	const [personalInfo, setPersonalInfo] = useState({});
 	const [displayScale, setDisplayScale] = useState(12);
 	const [curTheme, setTheme] = useState(0);
@@ -25,7 +26,7 @@ const App = () =>
 			title: 'Graphic Designer',
 			email: 'BillyBoggins@gmail.com',
 			address: 'Somewhereland',
-			phoneNum: '#456123789',
+			phoneNum: '1-208-3846-8937',
 			description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus, sit facere. Enim, ducimus facilis? Culpa, totam nesciunt officiis eveniet distinctio voluptatem? Voluptates asperiores neque cum tenetur, deserunt hic quia cupiditate ipsa illum sapiente iusto necessitatibus, porro suscipit quibusdam autem repellendus dicta facere earum quaerat. Consequatur perspiciatis ducimus ea architecto officia!',
 		})
 
@@ -51,6 +52,21 @@ const App = () =>
 				key: nanoid(),
 			}
 		])
+
+		setSkills([
+			{
+				skill: 'Excellent team leader',
+				key: nanoid(),
+			},
+			{
+				skill: 'Great planner',
+				key: nanoid(),
+			},
+			{
+				skill: 'Quick thinker',
+				key: nanoid(),
+			},
+		]);
 	}
 
 	return <div className={main.container}>
@@ -66,9 +82,11 @@ const App = () =>
 				personalInfo={personalInfo}
 				workInfo={workInfo}
 				educationInfo={educationInfo}
+				skills={skills}
 				setPersonalInfo={setPersonalInfo}
 				setEducationInfo={setEducationInfo}
-				setWorkInfo={setWorkInfo} />
+				setWorkInfo={setWorkInfo}
+				setSkills={setSkills} />
 		</div>
 		<CVDisplay
 			theme={curTheme}
@@ -77,6 +95,7 @@ const App = () =>
 				personal: personalInfo,
 				work: workInfo,
 				education: educationInfo,
+				skills,
 			}} />
 	</div>
 }
